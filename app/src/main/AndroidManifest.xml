@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.carpoolbuddy" >
+    package="com.example.carpoolbuddy">
 
     <application
         android:allowBackup="true"
@@ -8,13 +8,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CarpoolBuddy" >
+        android:theme="@style/Theme.CarpoolBuddy">
         <activity
-            android:name=".AfterLogIn"
+            android:name=".Controllers.VehiclesInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".AuthActivity"
-            android:exported="true" >
+            android:name=".Controllers.UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Controllers.AfterLogIn"
+            android:exported="false" />
+        <activity
+            android:name=".Controllers.AuthActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

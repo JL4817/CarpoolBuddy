@@ -4,56 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AuthActivity">
-
-    <EditText
-        android:id="@+id/logInEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:ems="10"
-        android:hint="Email"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/logInPass"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <EditText
-        android:id="@+id/logInPass"
-        android:layout_width="211dp"
-        android:layout_height="55dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.628"
-        tools:ignore="SpeakableTextPresentCheck" />
+    tools:context=".Controllers.AuthActivity">
 
     <Button
         android:id="@+id/logInButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="56dp"
         android:onClick="signIn"
         android:text="Log In"
-        app:layout_constraintStart_toStartOf="@+id/logInPass"
-        app:layout_constraintTop_toBottomOf="@+id/logInPass" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/signUpButton"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayoutAuth"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/signUpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="112dp"
         android:onClick="signUp"
         android:text="Sign up"
-        app:layout_constraintEnd_toEndOf="@+id/logInPass"
-        app:layout_constraintTop_toBottomOf="@+id/logInPass" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.706"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.633" />
+
+    <Spinner
+        android:id="@+id/spinnerAuth"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.158" />
+
+    <LinearLayout
+        android:id="@+id/linearLayoutAuth"
+        android:layout_width="370dp"
+        android:layout_height="216dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.296"></LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

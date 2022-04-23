@@ -1,7 +1,9 @@
-package com.example.carpoolbuddy;
+package com.example.carpoolbuddy.Controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.carpoolbuddy.R;
 
 public class AfterLogIn extends AppCompatActivity {
 
@@ -11,4 +13,7 @@ public class AfterLogIn extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.after_log_in);
     }
+
+
+
 }
