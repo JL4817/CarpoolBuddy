@@ -39,17 +39,21 @@ public class AuthActivity extends AppCompatActivity {
     private EditText emailField;
     private EditText passwordField;
 
-    //aluminai
     private LinearLayout layout;
     private EditText nameField;
-    private EditText gradYearField;
     private Spinner userRoleSpinner;
     private String selectedRole;
+
+    //alumni
+    private EditText gradYearField;
+
     private String uid;
     private static int uidGenerator = 1;
 
     //student
     private EditText studentGrade;
+    private String id;
+
 
 
     @Override
@@ -63,6 +67,9 @@ public class AuthActivity extends AppCompatActivity {
         layout = findViewById(R.id.linearLayoutAuth);
         userRoleSpinner = findViewById(R.id.spinnerAuth);
         setupSpinner();
+
+        id = "" + uidGenerator;
+
         uid = "" + uidGenerator;
         uidGenerator++;
     }
@@ -177,16 +184,16 @@ public class AuthActivity extends AppCompatActivity {
 
         if(selectedRole.equals("Alumni")) {
             int gradYearInt = Integer.parseInt(gradYearField.getText().toString());
-            Alumni newUser = new Alumni(uid, nameString, emailString, gradYearInt);
+            Alumni newUser = new Alumni(uidGenerator, nameString, emailString, gradYearInt);
+            firestore.collection("people").document(String.valueOf(uidGenerator)).set(newUser);
             uidGenerator++;
-            firestore.collection("people").document(uid).set(newUser);
         }
 
 
         if(selectedRole.equals("Student")) {
             int studentGradeInt = Integer.parseInt(studentGrade.getText().toString());
-            Student newUser = new Student(emailString, nameString, passwordString, studentGradeInt);
-            firestore.collection("people").document(uid+1).set(newUser);
+            Student newUser = new Student(uidGenerator, nameString, passwordString, studentGradeInt);
+            firestore.collection("people").document(String.valueOf(uidGenerator+1)).set(newUser);
         }
         
         

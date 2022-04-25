@@ -5,18 +5,21 @@ public class Student {
     private String stuEmail;
     private String stuName;
     private String stuPass;
-
     private int grade;
+    private int id;
 
     public Student(){
     }
 
-    public Student(String stuEmail, String stuName, String stuPass, int grade){
+    public Student(int id, String stuEmail, String stuName, String stuPass, int grade){
+        this.id = id;
         this.stuEmail = stuEmail;
         this.stuName = stuName;
         this.stuPass = stuPass;
         this.grade = grade;
     }
+
+
 
 
     public String getStuEmail() {
@@ -51,6 +54,14 @@ public class Student {
         this.stuName = stuName;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -58,6 +69,7 @@ public class Student {
                 ", stuName='" + stuName + '\'' +
                 ", stuPass='" + stuPass + '\'' +
                 ", grade=" + grade +
+                ", id='" + id + '\'' +
                 '}';
     }
 }

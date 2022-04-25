@@ -5,16 +5,15 @@ public class Alumni {
     private String nameString;
     private String emailString;
     private int gradYearInt;
-
-    public Alumni(String uid, String nameString, String emailString, int gradYearInt){
-
-    }
+    private int uid;
 
 
-    public Alumni(String nameString, String emailString, int gradYearInt){
+    public Alumni(int uid, String nameString, String emailString, int gradYearInt){
+        this.uid = uid;
         this.nameString = nameString;
         this.emailString = emailString;
         this.gradYearInt = gradYearInt;
+
     }
 
 
@@ -42,12 +41,21 @@ public class Alumni {
         this.gradYearInt = gradYearInt;
     }
 
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
     @Override
     public String toString() {
         return "Alumni{" +
                 "nameString='" + nameString + '\'' +
                 ", emailString='" + emailString + '\'' +
-                ", gradYearInt='" + gradYearInt + '\'' +
+                ", gradYearInt=" + gradYearInt +
+                ", uid=" + uid +
                 '}';
     }
 }
