@@ -1,18 +1,21 @@
 package com.example.carpoolbuddy.Controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.carpoolbuddy.R;
 
-public class AfterLogIn extends AppCompatActivity {
-
+public class CreateVehicle extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.after_log_in);
+        setContentView(R.layout.activity_create_vehicle);
     }
+
+
 
 
 

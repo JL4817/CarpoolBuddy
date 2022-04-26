@@ -14,12 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.carpoolbuddy.Controllers.AfterLogIn;
-
 import com.example.carpoolbuddy.Models.Alumni;
 import com.example.carpoolbuddy.Models.Student;
-import com.example.carpoolbuddy.Models.Vehicle;
-import com.example.carpoolbuddy.Models.User;
 
 import com.example.carpoolbuddy.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,8 +24,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.UUID;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -153,6 +147,11 @@ public class AuthActivity extends AppCompatActivity {
                             Log.d("SIGN UP", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+
+                            Intent nextScreen = new Intent(getBaseContext(), MainMenu.class);
+                            startActivity(nextScreen);
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("SIGN UP", "signInWithEmail:failure", task.getException());
@@ -165,12 +164,10 @@ public class AuthActivity extends AppCompatActivity {
 
 
 
-        System.out.println(String.format("Email and Passsword is", emailString, passwordString));
+      //  System.out.println(String.format("Email and Passsword is", emailString, passwordString));
 
      //   FirebaseUser mUser = mAuth.getCurrentUser();
 
-        Intent nextScreen = new Intent(getBaseContext(), AfterLogIn.class);
-        startActivity(nextScreen);
 
 
 
@@ -181,8 +178,10 @@ public class AuthActivity extends AppCompatActivity {
 
     }
 
+
+
     public void signUp(View v){
-        System.out.println("BYE");
+
 
         String nameString = nameField.getText().toString();
         String emailString = emailField.getText().toString();
@@ -223,10 +222,12 @@ public class AuthActivity extends AppCompatActivity {
 
     }
 
+    //WHY DOES SIGN UP MAKE YOU MOVE TO NEXT SCREEN???
+
     public void updateUI(FirebaseUser currentUser){
 
         if(currentUser != null){
-            Intent intent = new Intent(this, AfterLogIn.class);
+            Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);
         }
 

@@ -16,7 +16,7 @@
             android:name=".Controllers.UserProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".Controllers.AfterLogIn"
+            android:name=".Controllers.MainMenu"
             android:exported="false" />
         <activity
             android:name=".Controllers.AuthActivity"
