@@ -143,6 +143,28 @@ public class AuthActivity extends AppCompatActivity {
         String emailString = emailField.getText().toString();
         String passwordString = passwordField.getText().toString();
 
+
+        mAuth.signInWithEmailAndPassword(emailString, passwordString)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("SIGN UP", "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("SIGN UP", "signInWithEmail:failure", task.getException());
+                            Toast.makeText(AuthActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+                    }
+                });
+
+
+
         System.out.println(String.format("Email and Passsword is", emailString, passwordString));
 
      //   FirebaseUser mUser = mAuth.getCurrentUser();
@@ -151,9 +173,9 @@ public class AuthActivity extends AppCompatActivity {
         startActivity(nextScreen);
 
 
-     //   Vehicle por = new Vehicle("america", "BMW", 4, "5", 1);
+
+
       //  UUID.randomUUID().toString();
-        //firestore.collection("itmes").document("hello").collection("cars").document("hi").set(por);
 
 
 
@@ -192,7 +214,7 @@ public class AuthActivity extends AppCompatActivity {
 
         if(selectedRole.equals("Student")) {
             int studentGradeInt = Integer.parseInt(studentGrade.getText().toString());
-            Student newUser = new Student(uidGenerator, nameString, passwordString, studentGradeInt);
+            Student newUser = new Student(uidGenerator, emailString, nameString, studentGradeInt);
             firestore.collection("people").document(String.valueOf(uidGenerator+1)).set(newUser);
         }
         

@@ -4,18 +4,16 @@ public class Student {
 
     private String stuEmail;
     private String stuName;
-    private String stuPass;
     private int grade;
     private int id;
 
     public Student(){
     }
 
-    public Student(int id, String stuEmail, String stuName, String stuPass, int grade){
+    public Student(int id, String stuEmail, String stuName, int grade){
         this.id = id;
         this.stuEmail = stuEmail;
         this.stuName = stuName;
-        this.stuPass = stuPass;
         this.grade = grade;
     }
 
@@ -28,14 +26,6 @@ public class Student {
 
     public void setStuEmail(String stuEmail) {
         this.stuEmail = stuEmail;
-    }
-
-    public String getStuPass() {
-        return stuName;
-    }
-
-    public void setStuPass(String stuPass) {
-        this.stuName = stuName;
     }
 
     public int getGrade() {
@@ -67,7 +57,6 @@ public class Student {
         return "Student{" +
                 "stuEmail='" + stuEmail + '\'' +
                 ", stuName='" + stuName + '\'' +
-                ", stuPass='" + stuPass + '\'' +
                 ", grade=" + grade +
                 ", id='" + id + '\'' +
                 '}';
