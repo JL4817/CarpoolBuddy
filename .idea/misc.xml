@@ -3,7 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_create_vehicle.xml" value="0.2418478260869565" />
+        <entry key="app/src/main/res/layout/activity_create_vehicle.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_vehicles_info.xml" value="0.17527173913043478" />

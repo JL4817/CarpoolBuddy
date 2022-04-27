@@ -66,7 +66,7 @@ public class AuthActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
-        layout = findViewById(R.id.linearLayoutAuth);
+        layout = findViewById(R.id.linearLayoutVehicle);
         userRoleSpinner = findViewById(R.id.spinnerAuth);
         setupSpinner();
 
