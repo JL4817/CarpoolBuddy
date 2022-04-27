@@ -17,13 +17,18 @@ import android.widget.Toast;
 import com.example.carpoolbuddy.Models.Alumni;
 import com.example.carpoolbuddy.Models.Student;
 
+import com.example.carpoolbuddy.Models.Teacher;
+import com.example.carpoolbuddy.Models.User;
 import com.example.carpoolbuddy.R;
+import com.example.carpoolbuddy.Utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -41,12 +46,15 @@ public class AuthActivity extends AppCompatActivity {
     //alumni
     private EditText gradYearField;
 
-    private String uid;
-    private static int uidGenerator = 1;
 
     //student
     private EditText studentGrade;
-    private String id;
+
+    //teacher
+    private EditText teacherAge;
+
+    //parent
+    private EditText nrOfKidsParent;
 
 
 
@@ -62,10 +70,6 @@ public class AuthActivity extends AppCompatActivity {
         userRoleSpinner = findViewById(R.id.spinnerAuth);
         setupSpinner();
 
-        id = "" + uidGenerator;
-
-        uid = "" + uidGenerator;
-        uidGenerator++;
     }
 
 
@@ -74,7 +78,7 @@ public class AuthActivity extends AppCompatActivity {
 
     // setup spinner where user selects what user type they want to make an account for
     private void setupSpinner() {
-        String[] userTypes = {"Student", "Teacher", "Alumni", "Parent"};
+        String[] userTypes = {Constants.USER_STUDENT, Constants.USER_TEACHER, Constants.USER_ALUMNI, Constants.USER_PARENT};
         // add user types to spinner
         ArrayAdapter<String> langArrAdapter = new ArrayAdapter<String>(AuthActivity.this,
                 android.R.layout.simple_spinner_item, userTypes);
@@ -111,6 +115,13 @@ public class AuthActivity extends AppCompatActivity {
             studentGrade = new EditText(this);
             studentGrade.setHint("Student Grade");
             layout.addView(studentGrade);
+        }
+
+
+        if(selectedRole.equals("Teacher")) {
+            teacherAge = new EditText(this);
+            teacherAge.setHint("Teacher Age");
+            layout.addView(teacherAge);
         }
 
 
@@ -162,16 +173,6 @@ public class AuthActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-      //  System.out.println(String.format("Email and Passsword is", emailString, passwordString));
-
-     //   FirebaseUser mUser = mAuth.getCurrentUser();
-
-
-
-
-
       //  UUID.randomUUID().toString();
 
 
@@ -182,6 +183,12 @@ public class AuthActivity extends AppCompatActivity {
 
     public void signUp(View v){
 
+        //generate + get new key
+        DocumentReference newSignUpKey = firestore.collection(Constants.PEOPLE_COLLECTION).document();
+        String userKey = newSignUpKey.getId();
+
+        //make new user according to selected usertype
+        User newUser = null;
 
         String nameString = nameField.getText().toString();
         String emailString = emailField.getText().toString();
@@ -203,26 +210,33 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
 
-        if(selectedRole.equals("Alumni")) {
+        if(selectedRole.equals(Constants.USER_ALUMNI)) {
             int gradYearInt = Integer.parseInt(gradYearField.getText().toString());
-            Alumni newUser = new Alumni(uidGenerator, nameString, emailString, gradYearInt);
-            firestore.collection("people").document(String.valueOf(uidGenerator)).set(newUser);
-            uidGenerator++;
+            newUser = new Alumni(emailString, nameString, gradYearInt);
+
         }
-
-
-        if(selectedRole.equals("Student")) {
+        else if(selectedRole.equals(Constants.USER_STUDENT)) {
             int studentGradeInt = Integer.parseInt(studentGrade.getText().toString());
-            Student newUser = new Student(uidGenerator, emailString, nameString, studentGradeInt);
-            firestore.collection("people").document(String.valueOf(uidGenerator+1)).set(newUser);
+            newUser = new Student(emailString, nameString, studentGradeInt);
+
         }
-        
-        
-        
+        else if(selectedRole.equals(Constants.USER_TEACHER)) {
+            int teacherAgeInt = Integer.parseInt(teacherAge.getText().toString());
+            newUser = new Teacher(emailString, nameString, teacherAgeInt);
+
+        }
+        else if(selectedRole.equals(Constants.USER_PARENT)) {
+            int nrKidsP = Integer.parseInt(nrOfKidsParent.getText().toString());
+            newUser = new Teacher(emailString, nameString, nrKidsP);
+        }
+
+
+
+        //add the new user to the database
+        newSignUpKey.set(newUser);
 
     }
 
-    //WHY DOES SIGN UP MAKE YOU MOVE TO NEXT SCREEN???
 
     public void updateUI(FirebaseUser currentUser){
 
