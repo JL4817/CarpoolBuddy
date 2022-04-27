@@ -124,6 +124,12 @@ public class AuthActivity extends AppCompatActivity {
             layout.addView(teacherAge);
         }
 
+        if(selectedRole.equals("Parent")) {
+            nrOfKidsParent = new EditText(this);
+            nrOfKidsParent.setHint("Number of Kids");
+            layout.addView(nrOfKidsParent);
+        }
+
 
     }
 

@@ -7,10 +7,11 @@
     tools:context=".Controllers.CreateVehicle">
 
     <Button
-        android:id="@+id/signUpButton2"
+        android:id="@+id/createVehicleB"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="112dp"
+        android:onClick="createVehicleB"
         android:text="Create Vehicle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +38,8 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.296"></LinearLayout>
+        app:layout_constraintVertical_bias="0.295"></LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
