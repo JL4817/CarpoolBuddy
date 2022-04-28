@@ -35,9 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class CreateVehicle extends AppCompatActivity {
 
-
     private FirebaseFirestore firestore;
-
 
     //vehicle common
     private EditText location;
@@ -48,6 +46,9 @@ public class CreateVehicle extends AppCompatActivity {
     private LinearLayout layout;
     private Spinner userRoleSpinner;
     private String selectedRole;
+
+    //electric cars
+    private EditText battSize;
 
     //Plane
     private EditText aircraftSize;
@@ -105,11 +106,11 @@ public class CreateVehicle extends AppCompatActivity {
 
     public void addFields() {
         commonFields();
-       // if(selectedRole.equals("Electric Car")) {
-        //    gradYearField = new EditText(this);
-        //    gradYearField.setHint("Graduation year");
-       //     layout.addView(gradYearField);
-       // }
+        if(selectedRole.equals("Electric Car")) {
+            battSize = new EditText(this);
+            battSize.setHint("Battery Size");
+            layout.addView(battSize);
+        }
 
         if(selectedRole.equals("Plane")) {
             aircraftSize = new EditText(this);
@@ -126,7 +127,7 @@ public class CreateVehicle extends AppCompatActivity {
 
         if(selectedRole.equals("Sports Car")) {
             maxSpeedPossible = new EditText(this);
-            maxSpeedPossible.setHint("Teacher Age");
+            maxSpeedPossible.setHint("Max Speed");
             layout.addView(maxSpeedPossible);
         }
 
@@ -145,10 +146,10 @@ public class CreateVehicle extends AppCompatActivity {
         model.setHint("Model");
         layout.addView(model);
         capacity = new EditText(this);
-        capacity.setHint("Password");
+        capacity.setHint("Capacity");
         layout.addView(capacity);
         price = new EditText(this);
-        price.setHint("Password");
+        price.setHint("Price");
         layout.addView(price);
 
     }
@@ -171,8 +172,8 @@ public class CreateVehicle extends AppCompatActivity {
 
 
         if(selectedRole.equals(Constants.V_ELECTRICCAR)) {
-          //  int gradYearInt = Integer.parseInt(gradYearField.getText().toString());
-            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost);
+            int batterySizer = Integer.parseInt(battSize.getText().toString());
+            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, batterySizer);
 
         }
         else if(selectedRole.equals(Constants.V_PLANE)) {
@@ -191,10 +192,11 @@ public class CreateVehicle extends AppCompatActivity {
         }
 
 
-        //add the new user to the database
+        //add the new vehicle to the database
         newSignUpKey.set(newVehicle);
 
     }
+
 
 
 
