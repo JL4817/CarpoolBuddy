@@ -5,8 +5,8 @@ public class RV extends Vehicle{
     private int nrOfRooms;
 
 
-    public RV(String location, String model, int capacity, int price, int nrOfRooms) {
-        super(location, model, capacity, price);
+    public RV(String location, String model, int capacity, int price, boolean open, int nrOfRooms) {
+        super(location, model, capacity, price, open);
         this.nrOfRooms = nrOfRooms;
     }
 

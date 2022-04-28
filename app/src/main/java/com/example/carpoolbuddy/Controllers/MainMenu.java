@@ -26,4 +26,10 @@ public class MainMenu extends AppCompatActivity {
     }
 
 
+    public void toInfoShow(View v){
+        Intent nextScreen = new Intent(getBaseContext(), VehiclesInfoActivity.class);
+        startActivity(nextScreen);
+    }
+
+
 }

@@ -2,6 +2,7 @@ package com.example.carpoolbuddy.Controllers;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.carpoolbuddy.Models.Alumni;
@@ -42,6 +45,7 @@ public class CreateVehicle extends AppCompatActivity {
     private EditText model;
     private EditText capacity;
     private EditText price;
+    private Switch open;
 
     private LinearLayout layout;
     private Spinner userRoleSpinner;
@@ -72,7 +76,6 @@ public class CreateVehicle extends AppCompatActivity {
         setupSpinner();
 
     }
-
 
 
 
@@ -152,6 +155,9 @@ public class CreateVehicle extends AppCompatActivity {
         price = new EditText(this);
         price.setHint("Price");
         layout.addView(price);
+        open = new Switch(this);
+        open.setHint("Open");
+        layout.addView(open);
 
     }
 
@@ -170,26 +176,26 @@ public class CreateVehicle extends AppCompatActivity {
         String modelName = model.getText().toString();
         int spaces = Integer.parseInt(capacity.getText().toString());
         int theCost = Integer.parseInt(price.getText().toString());
-
+        boolean openH = Boolean.parseBoolean(open.getText().toString());
 
         if(selectedRole.equals(Constants.V_ELECTRICCAR)) {
             int batterySizer = Integer.parseInt(battSize.getText().toString());
-            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, batterySizer);
+            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, openH, batterySizer);
 
         }
         else if(selectedRole.equals(Constants.V_PLANE)) {
             int planeSize= Integer.parseInt(aircraftSize.getText().toString());
-            newVehicle = new Plane(locationPlace, modelName, spaces, theCost, planeSize);
+            newVehicle = new Plane(locationPlace, modelName, spaces, theCost, openH, planeSize);
 
         }
         else if(selectedRole.equals(Constants.V_RV)) {
             int nrOfRooms = Integer.parseInt(nrOfRoomsAd.getText().toString());
-            newVehicle = new RV(locationPlace, modelName, spaces, theCost, nrOfRooms);
+            newVehicle = new RV(locationPlace, modelName, spaces, theCost, openH, nrOfRooms);
 
         }
         else if(selectedRole.equals(Constants.V_SPORTSCAR)) {
             int maxSpeed = Integer.parseInt(maxSpeedPossible.getText().toString());
-            newVehicle = new SportsCar(locationPlace, modelName, spaces, theCost, maxSpeed);
+            newVehicle = new SportsCar(locationPlace, modelName, spaces, theCost, openH, maxSpeed);
         }
 
 
@@ -199,6 +205,10 @@ public class CreateVehicle extends AppCompatActivity {
     }
 
 
+    public void toTheBack(View v){
+        Intent intent = new Intent(this, MainMenu.class);
+        startActivity(intent);
+    }
 
 
 
