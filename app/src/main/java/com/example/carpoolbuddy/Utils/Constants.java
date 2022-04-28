@@ -11,7 +11,7 @@ public class Constants {
     public static String USER_PARENT = "Parent";
     public static String USER_ALUMNI = "Alumni";
 
-    public static String V_ELECTRICCAR = "Electric Car ";
+    public static String V_ELECTRICCAR = "Electric Car";
     public static String V_PLANE = "Plane";
     public static String V_RV = "RV";
     public static String V_SPORTSCAR = "Sports Car";
