@@ -1,6 +1,7 @@
 package com.example.carpoolbuddy.Controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class MainMenu extends AppCompatActivity {
         Intent nextScreen = new Intent(getBaseContext(), VehiclesInfoActivity.class);
         startActivity(nextScreen);
     }
+
 
 
 }

@@ -5,11 +5,13 @@
       <map>
         <entry key="app/src/main/res/layout/activity_create_vehicle.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_menu_lists.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_vehicles_info.xml" value="0.335" />
         <entry key="app/src/main/res/layout/after_log_in.xml" value="0.2926367800825095" />
         <entry key="app/src/main/res/layout/auth_activity.xml" value="0.24322916666666666" />
         <entry key="app/src/main/res/layout/main_menu.xml" value="0.23550724637681159" />
+        <entry key="app/src/main/res/layout/rec_row_view.xml" value="0.375" />
       </map>
     </option>
   </component>

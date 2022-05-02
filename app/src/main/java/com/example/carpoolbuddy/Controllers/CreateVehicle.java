@@ -156,7 +156,7 @@ public class CreateVehicle extends AppCompatActivity {
         price.setHint("Price");
         layout.addView(price);
         open = new Switch(this);
-        open.setHint("Open");
+        open.setHint("Check if Open");
         layout.addView(open);
 
     }
@@ -176,26 +176,29 @@ public class CreateVehicle extends AppCompatActivity {
         String modelName = model.getText().toString();
         int spaces = Integer.parseInt(capacity.getText().toString());
         int theCost = Integer.parseInt(price.getText().toString());
-        boolean openH = Boolean.parseBoolean(open.getText().toString());
+      //  boolean openH = Boolean.parseBoolean(open.getText().toString());
+
+        Boolean checked = open.isChecked();
+
 
         if(selectedRole.equals(Constants.V_ELECTRICCAR)) {
             int batterySizer = Integer.parseInt(battSize.getText().toString());
-            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, openH, batterySizer);
+            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, checked, batterySizer);
 
         }
         else if(selectedRole.equals(Constants.V_PLANE)) {
             int planeSize= Integer.parseInt(aircraftSize.getText().toString());
-            newVehicle = new Plane(locationPlace, modelName, spaces, theCost, openH, planeSize);
+            newVehicle = new Plane(locationPlace, modelName, spaces, theCost, checked, planeSize);
 
         }
         else if(selectedRole.equals(Constants.V_RV)) {
             int nrOfRooms = Integer.parseInt(nrOfRoomsAd.getText().toString());
-            newVehicle = new RV(locationPlace, modelName, spaces, theCost, openH, nrOfRooms);
+            newVehicle = new RV(locationPlace, modelName, spaces, theCost, checked, nrOfRooms);
 
         }
         else if(selectedRole.equals(Constants.V_SPORTSCAR)) {
             int maxSpeed = Integer.parseInt(maxSpeedPossible.getText().toString());
-            newVehicle = new SportsCar(locationPlace, modelName, spaces, theCost, openH, maxSpeed);
+            newVehicle = new SportsCar(locationPlace, modelName, spaces, theCost, checked, maxSpeed);
         }
 
 
