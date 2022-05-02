@@ -86,7 +86,7 @@ public class VehiclesInfoActivity extends AppCompatActivity {
                 });
 
                 //System.out.println(vehiclesList.toString());
-            //    System.out.print("Vehicles list gotten from server" + vehiclesList);
+            //System.out.print("Vehicles list gotten from server" + vehiclesList);
 
                 recView.setAdapter(myAdapter);
                 recView.setLayoutManager(new LinearLayoutManager(VehiclesInfoActivity.this));
