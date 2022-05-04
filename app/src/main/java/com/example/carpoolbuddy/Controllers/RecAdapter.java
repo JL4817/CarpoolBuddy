@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class RecAdapter extends RecyclerView.Adapter<RecHolder>{
 
     ArrayList<Vehicle> vehiclesList;
-    private ItemClickListener mItemListener;
+    private RecHolder.ItemClickListener mItemListener;
 
-    public RecAdapter(ArrayList vehiclesList, ItemClickListener itemClickListener){
+    public RecAdapter(ArrayList vehiclesList, RecHolder.ItemClickListener itemClickListener){
         this.vehiclesList = vehiclesList;
         this.mItemListener = itemClickListener;
     }
@@ -52,9 +52,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecHolder>{
     }
 
 
-    public interface ItemClickListener{
-        void onItemClick(Vehicle details);
-    }
+
 
 
 

@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.carpoolbuddy.Models.Vehicle;
 import com.example.carpoolbuddy.R;
 
 public class RecHolder extends RecyclerView.ViewHolder {
@@ -26,5 +27,14 @@ public class RecHolder extends RecyclerView.ViewHolder {
 
 
         }
+
+    public interface ItemClickListener{
+        void onItemClick(Vehicle details);
+    }
+
+
+   //   if(getIntent().hasExtra("selected_vehicle")){
+   //     Vehicle vehicle = getIntent().getParcelableExtra("selected_vehicle");
+//    }
 
 }

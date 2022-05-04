@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -25,18 +27,20 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class VehiclesInfoActivity extends AppCompatActivity {
+public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder.ItemClickListener{
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore firestore;
     private ArrayList<Vehicle> vehiclesList;
     private RecyclerView recView;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_lists);
 
+        context = this;
         mAuth = FirebaseAuth.getInstance();
         recView = findViewById(R.id.recView);
         firestore = FirebaseFirestore.getInstance();
@@ -77,12 +81,18 @@ public class VehiclesInfoActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<String> task) {
 
 
-                RecAdapter myAdapter = new RecAdapter(vehiclesList, new RecAdapter.ItemClickListener() {
+                RecAdapter myAdapter = new RecAdapter(vehiclesList, new RecHolder.ItemClickListener() {
 
                     @Override
                     public void onItemClick(Vehicle details) {
-                        showToast(details.getLocation()+"CLICKED");
+                        //  showToast(details.getLocation()+"CLICKED");
+
+
+                        Intent i = new Intent(context, Next.class);
+                        i.putExtra("selected_vehicle", details);
+                        startActivity(i);
                     }
+
                 });
 
                 //System.out.println(vehiclesList.toString());
@@ -102,5 +112,15 @@ public class VehiclesInfoActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemClick(Vehicle details) {
+
+
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
 
 }
