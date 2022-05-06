@@ -46,6 +46,7 @@ public class CreateVehicle extends AppCompatActivity {
     private EditText capacity;
     private EditText price;
     private Switch open;
+    private EditText type;
 
     private LinearLayout layout;
     private Spinner userRoleSpinner;
@@ -110,7 +111,6 @@ public class CreateVehicle extends AppCompatActivity {
     public void addFields() {
         commonFields();
         if(selectedRole.equals("Electric Car")) {
-            System.out.println(" Car");
             battSize = new EditText(this);
             battSize.setHint("Battery Size");
             layout.addView(battSize);
@@ -158,6 +158,9 @@ public class CreateVehicle extends AppCompatActivity {
         open = new Switch(this);
         open.setHint("Check if Open");
         layout.addView(open);
+        type = new EditText(this);
+        type.setHint("Write the Type:");
+        layout.addView(type);
 
     }
 
@@ -176,6 +179,7 @@ public class CreateVehicle extends AppCompatActivity {
         String modelName = model.getText().toString();
         int spaces = Integer.parseInt(capacity.getText().toString());
         int theCost = Integer.parseInt(price.getText().toString());
+        String typeV = type.getText().toString();
       //  boolean openH = Boolean.parseBoolean(open.getText().toString());
 
         Boolean checked = open.isChecked();
@@ -183,22 +187,22 @@ public class CreateVehicle extends AppCompatActivity {
 
         if(selectedRole.equals(Constants.V_ELECTRICCAR)) {
             int batterySizer = Integer.parseInt(battSize.getText().toString());
-            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, checked, batterySizer);
+            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, checked, typeV, batterySizer);
 
         }
         else if(selectedRole.equals(Constants.V_PLANE)) {
             int planeSize= Integer.parseInt(aircraftSize.getText().toString());
-            newVehicle = new Plane(locationPlace, modelName, spaces, theCost, checked, planeSize);
+            newVehicle = new Plane(locationPlace, modelName, spaces, theCost, checked, typeV, planeSize);
 
         }
         else if(selectedRole.equals(Constants.V_RV)) {
             int nrOfRooms = Integer.parseInt(nrOfRoomsAd.getText().toString());
-            newVehicle = new RV(locationPlace, modelName, spaces, theCost, checked, nrOfRooms);
+            newVehicle = new RV(locationPlace, modelName, spaces, theCost, checked, typeV, nrOfRooms);
 
         }
         else if(selectedRole.equals(Constants.V_SPORTSCAR)) {
             int maxSpeed = Integer.parseInt(maxSpeedPossible.getText().toString());
-            newVehicle = new SportsCar(locationPlace, modelName, spaces, theCost, checked, maxSpeed);
+            newVehicle = new SportsCar(locationPlace, modelName, spaces, theCost, checked, typeV, maxSpeed);
         }
 
 

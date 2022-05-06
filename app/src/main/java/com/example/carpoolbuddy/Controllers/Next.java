@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.carpoolbuddy.Models.Vehicle;
@@ -16,6 +17,7 @@ public class Next extends AppCompatActivity{
     private String lo, pr, ca, mo, spN;
     private Vehicle vehicle;
 
+    private EditText battSize;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,11 +32,8 @@ public class Next extends AppCompatActivity{
 
         if(getIntent().hasExtra("selected_vehicle")){
             vehicle = getIntent().getParcelableExtra("selected_vehicle");
+            vehicle.getModel();
         }
-
-       /* ToDo
-       check vehicle.getType if this is equals to "Car" */
-
 
         lo = vehicle.getLocation();
         pr = String.valueOf(vehicle.getPrice());
@@ -48,8 +47,22 @@ public class Next extends AppCompatActivity{
         model.setText(mo);
         sp.setText(spN);
 
+        if(vehicle.getModel().equals("Electric Car")){
+            battSize = new EditText(this);
+            battSize.setHint("Battery Size");
+         //   layout.addView(battSize);
+            System.out.println("HELLO SUCKER");
+        }
+
+
+
+
 
     }
+
+
+
+
 
 
 

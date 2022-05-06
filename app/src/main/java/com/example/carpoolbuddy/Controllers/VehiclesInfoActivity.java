@@ -91,6 +91,9 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
                         Intent i = new Intent(context, Next.class);
                         i.putExtra("selected_vehicle", details);
                         startActivity(i);
+
+
+
                     }
 
                 });

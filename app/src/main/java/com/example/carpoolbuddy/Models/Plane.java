@@ -5,8 +5,8 @@ public class Plane extends Vehicle{
     private int planeSize;
 
 
-    public Plane(String location, String model, int capacity, int price, boolean open, int planeSize) {
-        super(location, model, capacity, price, open);
+    public Plane(String location, String model, int capacity, int price, boolean open, String type, int planeSize) {
+        super(location, model, capacity, price, open, type);
         this.planeSize = planeSize;
     }
 
