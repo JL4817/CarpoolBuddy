@@ -15,6 +15,7 @@ public class RecHolder extends RecyclerView.ViewHolder {
         protected TextView model;
         protected TextView capacity;
         protected TextView price;
+        protected TextView type;
 
 
         public RecHolder(@NonNull View itemView) {
@@ -24,6 +25,7 @@ public class RecHolder extends RecyclerView.ViewHolder {
             model = itemView.findViewById(R.id.modelTextView);
             capacity = itemView.findViewById(R.id.capacityTextView);
             price = itemView.findViewById(R.id.priceTextView);
+            type = itemView.findViewById(R.id.typeTextView);
 
 
         }

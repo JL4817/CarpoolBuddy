@@ -39,6 +39,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecHolder>{
         holder.model.setText(vehiclesList.get(position).getModel());
         holder.capacity.setText(String.valueOf(vehiclesList.get(position).getCapacity()));
         holder.price.setText(String.valueOf(vehiclesList.get(position).getPrice()));
+        holder.type.setText(String.valueOf(vehiclesList.get(position).getType()));
 
         holder.itemView.setOnClickListener(view -> {
             mItemListener.onItemClick(vehiclesList.get(position));
