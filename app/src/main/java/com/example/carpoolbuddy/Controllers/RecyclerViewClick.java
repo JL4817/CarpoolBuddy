@@ -57,10 +57,22 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
         if(getIntent().hasExtra("selected_vehicle")){
             selectedVehicle = (Vehicle)getIntent().getParcelableExtra("selected_vehicle");
 
+            lo = vehicle.getLocation();
+            pr = String.valueOf(vehicle.getPrice());
+            mo = vehicle.getModel();
+            ty = vehicle.getType();
+
+            vehicle.getModel();
+
+            location.setText(lo);
+            price.setText(pr);
+            model.setText(mo);
+
             layout = findViewById(R.id.attribute);
             price = findViewById(R.id.priceN);
             model = findViewById(R.id.modelN);
             location = findViewById(R.id.locationN);
+
 
             carMaxCapacityTextView = findViewById(R.id.maxCa);
             carRemainingCapacity = findViewById(R.id.reCa);
@@ -72,18 +84,9 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
         }
 
-         //   vehicle = getIntent().getParcelableExtra("selected_vehicle");
-            vehicle.getModel();
 
-        lo = vehicle.getLocation();
-        pr = String.valueOf(vehicle.getPrice());
-        mo = vehicle.getModel();
-        ty = vehicle.getType();
-
-        location.setText(lo);
-        price.setText(pr);
-        model.setText(mo);
-
+        buttonReservedRide = findViewById(R.id.carpool);
+        buttonReservedRide.setOnClickListener(this);
 
          //   vehiclesList = (ArrayList<Vehicle>)getIntent().getSerializableExtra("vehicleList");
         //    position = (int)getIntent().getSerializableExtra("vehiclePosition");
