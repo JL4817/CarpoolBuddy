@@ -42,7 +42,7 @@ public class RecAdapter extends RecyclerView.Adapter<RecHolder>{
         holder.type.setText(String.valueOf(vehiclesList.get(position).getType()));
 
         holder.itemView.setOnClickListener(view -> {
-            mItemListener.onItemClick(vehiclesList.get(position));
+            mItemListener.onItemClick(vehiclesList, position);
         });
 
     }

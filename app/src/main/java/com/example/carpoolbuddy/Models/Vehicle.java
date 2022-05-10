@@ -36,7 +36,7 @@ public class Vehicle implements Serializable, Parcelable {
         this.capacity = capacity;
         this.remainingCapacity = capacity;
         this.vehicleID = vehicleID;
-        this.reservedUIDs = reservedUIDs;
+        this.reservedUIDs = new ArrayList<>();;
         this.price = price;
         this.open = open;
         this.type = type;
@@ -135,24 +135,10 @@ public class Vehicle implements Serializable, Parcelable {
         return reservedUIDs;
     }
 
-    public void setReservedUIDs(ArrayList<String> reservedUIDs) {
-        this.reservedUIDs = reservedUIDs;
+    public void setReservedUIDs(String inUid) {
+        this.reservedUIDs.add(inUid);
     }
 
-    @Override
-    public String toString() {
-        return "Vehicle{" +
-                "location='" + location + '\'' +
-                ", model='" + model + '\'' +
-                ", capacity=" + capacity +
-                ", remainingCapacity=" + remainingCapacity +
-                ", vehicleID='" + vehicleID + '\'' +
-                ", reservedUIDs=" + reservedUIDs +
-                ", price=" + price +
-                ", open=" + open +
-                ", type='" + type + '\'' +
-                '}';
-    }
 
     @Override
     public int describeContents() {
@@ -171,4 +157,21 @@ public class Vehicle implements Serializable, Parcelable {
         dest.writeByte((byte) (open ? 1 : 0));
         dest.writeString(type);
     }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "location='" + location + '\'' +
+                ", model='" + model + '\'' +
+                ", capacity=" + capacity +
+                ", remainingCapacity=" + remainingCapacity +
+                ", vehicleID='" + vehicleID + '\'' +
+                ", reservedUIDs=" + reservedUIDs +
+                ", price=" + price +
+                ", open=" + open +
+                ", type='" + type + '\'' +
+                '}';
+    }
+
+
 }

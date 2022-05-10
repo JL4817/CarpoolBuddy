@@ -82,15 +82,16 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
             public void onComplete(@NonNull Task<String> task) {
 
 
-                RecAdapter myAdapter = new RecAdapter(vehiclesList, new RecHolder.ItemClickListener() {
+                RecAdapter myAdapter = new RecAdapter(vehiclesList ,new RecHolder.ItemClickListener() {
 
                     @Override
-                    public void onItemClick(Vehicle details) {
+                    public void onItemClick(ArrayList<Vehicle> details, int position) {
                         //  showToast(details.getLocation()+"CLICKED");
 
 
                         Intent i = new Intent(context, RecyclerViewClick.class);
-                        i.putExtra("selected_vehicle", (Parcelable) details);
+                        i.putExtra("vehicleList", details);
+                        i.putExtra("vehiclePos", position);
                         startActivity(i);
 
 
@@ -115,16 +116,13 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-
-    @Override
-    public void onItemClick(Vehicle details) {
-
-
-    }
-
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
 
+    @Override
+    public void onItemClick(ArrayList<Vehicle> details, int position) {
+
+    }
 }

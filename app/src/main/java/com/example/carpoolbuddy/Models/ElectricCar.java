@@ -29,4 +29,12 @@ public class ElectricCar extends Vehicle{
                 "batterySize=" + batterySize +
                 '}';
     }
+
+    public int getBatterySize() {
+        return batterySize;
+    }
+
+    public void setBatterySize(int batterySize) {
+        this.batterySize = batterySize;
+    }
 }

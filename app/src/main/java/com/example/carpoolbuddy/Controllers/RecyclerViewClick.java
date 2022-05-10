@@ -13,8 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.carpoolbuddy.Models.ElectricCar;
+import com.example.carpoolbuddy.Models.SportsCar;
 import com.example.carpoolbuddy.Models.Vehicle;
 import com.example.carpoolbuddy.R;
+import com.example.carpoolbuddy.Utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,8 +32,10 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
     private TextView location, price, model, type;
     private String lo, pr, mo, ty, bat;
+    private int position;
     private Vehicle vehicle;
 
+    private ArrayList<Vehicle> vehicleList;
     private Vehicle selectedVehicle;
     private LinearLayout layout;
     private TextView battSize;
@@ -54,8 +58,22 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next);
 
-        if(getIntent().hasExtra("selected_vehicle")){
-            selectedVehicle = (Vehicle)getIntent().getParcelableExtra("selected_vehicle");
+        if(getIntent().hasExtra("vehicleList") & getIntent().hasExtra("pos")){
+            vehicleList = (ArrayList<Vehicle>) getIntent().getSerializableExtra("vehicleList");
+            position = (int) getIntent().getSerializableExtra("vehiclePos");
+
+            if (vehicleList.get(position).getType().equals(Constants.V_ELECTRICCAR)) {
+                ElectricCar electricCar = (ElectricCar) vehicleList.get(position);
+                System.out.println(electricCar.getBatterySize());
+
+                battSize = new EditText(this);
+                battSize.setHint("Battery Size");
+                layout.addView(battSize);
+
+            } else if(vehicleList.get(position).getType().equals(Constants.V_SPORTSCAR)) {
+                SportsCar sportsCar = (SportsCar) vehicleList.get(position);
+             //   System.out.println(sportsCar.());
+            }
 
             lo = vehicle.getLocation();
             pr = String.valueOf(vehicle.getPrice());
@@ -64,11 +82,12 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
             vehicle.getModel();
 
-            location.setText(lo);
-            price.setText(pr);
-            model.setText(mo);
+            location.setText("Location"+lo);
+            price.setText("Price"+pr);
+            model.setText("Model"+mo);
 
             layout = findViewById(R.id.attribute);
+
             price = findViewById(R.id.priceN);
             model = findViewById(R.id.modelN);
             location = findViewById(R.id.locationN);
@@ -93,14 +112,6 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
 
 
-        if(vehicle.getType().equals("Electric Car")){
-
-            battSize = new EditText(this);
-            battSize.setHint("Battery Size");
-            layout.addView(battSize);
-
-        }
-
 
 
 
@@ -124,7 +135,7 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
                 .update("remainingCapacity", selectedVehicle.getRemainingCapacity() -1);
 
         //add user's uid to the list of reservedUIds
-    //selectedVehicle.addReservedUid(mAuth.getUid());
+        selectedVehicle.setReservedUIDs(mAuth.getUid());
         firestore.collection("vehicles").document(selectedVehicle.getVehicleID())
                 .update("reservedUids", selectedVehicle.getReservedUIDs())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
