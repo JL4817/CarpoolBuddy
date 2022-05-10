@@ -27,7 +27,6 @@ public class RecHolder extends RecyclerView.ViewHolder {
             price = itemView.findViewById(R.id.priceTextView);
             type = itemView.findViewById(R.id.typeTextView);
 
-
         }
 
     public interface ItemClickListener{

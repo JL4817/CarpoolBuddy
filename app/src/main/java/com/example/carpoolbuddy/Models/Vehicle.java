@@ -3,39 +3,52 @@ package com.example.carpoolbuddy.Models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Vehicle implements Parcelable{
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Vehicle implements Serializable, Parcelable {
     private String location;
     private String model;
     private int capacity;
+    private int remainingCapacity;
+    private String vehicleID;
+    private ArrayList<String>reservedUIDs;
     private int price;
     private boolean open;
     private String type;
 
-    //i dont have open, is that fine?
 
     public Vehicle(){
         this.location = "";
         this.model = "";
         this.capacity = 0;
+        this.remainingCapacity = capacity;
+        this.vehicleID = "";
+        this.reservedUIDs = new ArrayList<>();
         this.price = 0;
         this.open = false;
         this.type = "";
     }
 
-    public Vehicle(String location, String model, int capacity, int price, boolean open, String type){
+    public Vehicle(String location, String model, int capacity, int price, boolean open, String type) {
         this.location = location;
         this.model = model;
         this.capacity = capacity;
+        this.remainingCapacity = capacity;
+        this.vehicleID = vehicleID;
+        this.reservedUIDs = reservedUIDs;
         this.price = price;
         this.open = open;
         this.type = type;
     }
 
-
     protected Vehicle(Parcel in) {
         location = in.readString();
         model = in.readString();
         capacity = in.readInt();
+        remainingCapacity = in.readInt();
+        vehicleID = in.readString();
+        reservedUIDs = in.createStringArrayList();
         price = in.readInt();
         open = in.readByte() != 0;
         type = in.readString();
@@ -102,12 +115,39 @@ public class Vehicle implements Parcelable{
     }
 
 
+    public int getRemainingCapacity() {
+        return remainingCapacity;
+    }
+
+    public void setRemainingCapacity(int remainingCapacity) {
+        this.remainingCapacity = remainingCapacity;
+    }
+
+    public String getVehicleID() {
+        return vehicleID;
+    }
+
+    public void setVehicleID(String vehicleID) {
+        this.vehicleID = vehicleID;
+    }
+
+    public ArrayList<String> getReservedUIDs() {
+        return reservedUIDs;
+    }
+
+    public void setReservedUIDs(ArrayList<String> reservedUIDs) {
+        this.reservedUIDs = reservedUIDs;
+    }
+
     @Override
     public String toString() {
         return "Vehicle{" +
                 "location='" + location + '\'' +
                 ", model='" + model + '\'' +
                 ", capacity=" + capacity +
+                ", remainingCapacity=" + remainingCapacity +
+                ", vehicleID='" + vehicleID + '\'' +
+                ", reservedUIDs=" + reservedUIDs +
                 ", price=" + price +
                 ", open=" + open +
                 ", type='" + type + '\'' +
@@ -124,6 +164,9 @@ public class Vehicle implements Parcelable{
         dest.writeString(location);
         dest.writeString(model);
         dest.writeInt(capacity);
+        dest.writeInt(remainingCapacity);
+        dest.writeString(vehicleID);
+        dest.writeStringList(reservedUIDs);
         dest.writeInt(price);
         dest.writeByte((byte) (open ? 1 : 0));
         dest.writeString(type);

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CarpoolBuddy" >
         <activity
-            android:name=".Controllers.Next"
+            android:name=".Controllers.RecyclerViewClick"
             android:exported="false" />
         <activity
             android:name=".Controllers.CreateVehicle"

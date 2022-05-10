@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.carpoolbuddy.Models.Vehicle;
@@ -24,8 +23,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder.ItemClickListener{
 
@@ -45,6 +44,7 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
         recView = findViewById(R.id.recView);
         firestore = FirebaseFirestore.getInstance();
         vehiclesList =  new ArrayList<>();
+
         showVL();
 
 
@@ -66,6 +66,7 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
                 if(task.isSuccessful() && task.getResult() != null){
                     for(QueryDocumentSnapshot document : task.getResult()){
                         vehiclesList.add(document.toObject(Vehicle.class));
+
                     }
                     getAllRidesTask.setResult(null);
                 }
@@ -88,8 +89,8 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
                         //  showToast(details.getLocation()+"CLICKED");
 
 
-                        Intent i = new Intent(context, Next.class);
-                        i.putExtra("selected_vehicle", details);
+                        Intent i = new Intent(context, RecyclerViewClick.class);
+                        i.putExtra("selected_vehicle", (Parcelable) details);
                         startActivity(i);
 
 
