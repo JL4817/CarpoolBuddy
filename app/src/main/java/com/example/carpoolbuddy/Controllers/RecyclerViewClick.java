@@ -47,18 +47,39 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
 
 
-
-    //   ArrayList<Vehicle> vehiclesList = ;
-
-  //  private ArrayList<Vehicle> vehiclesList;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next);
 
         if(getIntent().hasExtra("vehicleList") & getIntent().hasExtra("pos")){
+
+            vehicle.getModel();
+
+            layout = findViewById(R.id.mainLayout);
+            price = findViewById(R.id.priceN);
+            model = findViewById(R.id.modelN);
+            location = findViewById(R.id.locationN);
+
+            lo = vehicle.getLocation();
+            pr = String.valueOf(vehicle.getPrice());
+            mo = vehicle.getModel();
+            ty = vehicle.getType();
+
+            location.setText("Location: "+lo);
+            price.setText("Price: "+pr);
+            model.setText("Model: "+mo);
+
+
+            carMaxCapacityTextView = findViewById(R.id.maxCa);
+            carRemainingCapacity = findViewById(R.id.reCa);
+            bookedUIDs = findViewById(R.id.bookedUID);
+
+            carMaxCapacityTextView.setText(String.valueOf(selectedVehicle.getCapacity()));
+            carRemainingCapacity.setText(String.valueOf(selectedVehicle.getRemainingCapacity()));
+            bookedUIDs.setText(selectedVehicle.getReservedUIDs().toString());
+
+
             vehicleList = (ArrayList<Vehicle>) getIntent().getSerializableExtra("vehicleList");
             position = (int) getIntent().getSerializableExtra("vehiclePos");
 
@@ -75,42 +96,22 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
              //   System.out.println(sportsCar.());
             }
 
-            lo = vehicle.getLocation();
-            pr = String.valueOf(vehicle.getPrice());
-            mo = vehicle.getModel();
-            ty = vehicle.getType();
-
-            vehicle.getModel();
-
-            location.setText("Location"+lo);
-            price.setText("Price"+pr);
-            model.setText("Model"+mo);
-
-            layout = findViewById(R.id.attribute);
-
-            price = findViewById(R.id.priceN);
-            model = findViewById(R.id.modelN);
-            location = findViewById(R.id.locationN);
 
 
-            carMaxCapacityTextView = findViewById(R.id.maxCa);
-            carRemainingCapacity = findViewById(R.id.reCa);
-            bookedUIDs = findViewById(R.id.bookedUID);
 
-            carMaxCapacityTextView.setText(String.valueOf(selectedVehicle.getCapacity()));
-            carRemainingCapacity.setText(String.valueOf(selectedVehicle.getRemainingCapacity()));
-            bookedUIDs.setText(selectedVehicle.getReservedUIDs().toString());
+
 
         }
 
 
-        buttonReservedRide = findViewById(R.id.carpool);
-        buttonReservedRide.setOnClickListener(this);
+
 
          //   vehiclesList = (ArrayList<Vehicle>)getIntent().getSerializableExtra("vehicleList");
         //    position = (int)getIntent().getSerializableExtra("vehiclePosition");
 
 
+        buttonReservedRide = findViewById(R.id.carpool);
+        buttonReservedRide.setOnClickListener(this);
 
 
 
