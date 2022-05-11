@@ -54,38 +54,40 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
         if(getIntent().hasExtra("vehicleList") & getIntent().hasExtra("pos")){
 
-            vehicle.getModel();
+            //vehicle.getModel();
 
             layout = findViewById(R.id.mainLayout);
             price = findViewById(R.id.priceN);
             model = findViewById(R.id.modelN);
             location = findViewById(R.id.locationN);
-
-            lo = vehicle.getLocation();
-            pr = String.valueOf(vehicle.getPrice());
-            mo = vehicle.getModel();
-            ty = vehicle.getType();
-
-            location.setText("Location: "+lo);
-            price.setText("Price: "+pr);
-            model.setText("Model: "+mo);
-
+          //  type = findViewById(R.id.locationN);
 
             carMaxCapacityTextView = findViewById(R.id.maxCa);
             carRemainingCapacity = findViewById(R.id.reCa);
             bookedUIDs = findViewById(R.id.bookedUID);
 
+            lo = vehicle.getLocation();
+            pr = String.valueOf(vehicle.getPrice());
+            mo = vehicle.getModel();
+        //    ty = vehicle.getType();
+
             carMaxCapacityTextView.setText(String.valueOf(selectedVehicle.getCapacity()));
             carRemainingCapacity.setText(String.valueOf(selectedVehicle.getRemainingCapacity()));
             bookedUIDs.setText(selectedVehicle.getReservedUIDs().toString());
 
+            location.setText("Location: "+lo);
+            price.setText("Price: "+pr);
+            model.setText("Model: "+mo);
+          //  type.setText("Type of Car: "+ty);
 
             vehicleList = (ArrayList<Vehicle>) getIntent().getSerializableExtra("vehicleList");
             position = (int) getIntent().getSerializableExtra("vehiclePos");
 
+
             if (vehicleList.get(position).getType().equals(Constants.V_ELECTRICCAR)) {
                 ElectricCar electricCar = (ElectricCar) vehicleList.get(position);
                 System.out.println(electricCar.getBatterySize());
+
 
                 battSize = new EditText(this);
                 battSize.setHint("Battery Size");
@@ -96,6 +98,8 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
              //   System.out.println(sportsCar.());
             }
 
+            //why do I need a vehicle id?
+            //it suddenly doesn't work
 
 
 

@@ -12,22 +12,14 @@ public class Vehicle implements Serializable, Parcelable {
     private int capacity;
     private int remainingCapacity;
     private String vehicleID;
-    private ArrayList<String>reservedUIDs;
+    private ArrayList<String> reservedUIDs;
     private int price;
     private boolean open;
     private String type;
 
 
     public Vehicle(){
-        this.location = "";
-        this.model = "";
-        this.capacity = 0;
-        this.remainingCapacity = capacity;
-        this.vehicleID = "";
-        this.reservedUIDs = new ArrayList<>();
-        this.price = 0;
-        this.open = false;
-        this.type = "";
+
     }
 
     public Vehicle(String location, String model, int capacity, int price, boolean open, String type) {
