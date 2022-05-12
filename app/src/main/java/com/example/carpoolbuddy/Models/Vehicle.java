@@ -127,7 +127,7 @@ public class Vehicle implements Serializable, Parcelable {
         return reservedUIDs;
     }
 
-    public void setReservedUIDs(String inUid) {
+    public void addReservedUIDs(String inUid) {
         this.reservedUIDs.add(inUid);
     }
 

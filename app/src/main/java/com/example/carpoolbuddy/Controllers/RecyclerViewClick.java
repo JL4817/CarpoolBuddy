@@ -140,7 +140,7 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
                 .update("remainingCapacity", selectedVehicle.getRemainingCapacity() -1);
 
         //add user's uid to the list of reservedUIds
-        selectedVehicle.setReservedUIDs(mAuth.getUid());
+        selectedVehicle.addReservedUIDs(mAuth.getUid());
         firestore.collection("vehicles").document(selectedVehicle.getVehicleID())
                 .update("reservedUids", selectedVehicle.getReservedUIDs())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
