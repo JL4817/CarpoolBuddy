@@ -74,7 +74,8 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
             carMaxCapacityTextView.setText(String.valueOf(selectedVehicle.getCapacity()));
             carRemainingCapacity.setText(String.valueOf(selectedVehicle.getRemainingCapacity()));
             bookedUIDs.setText(selectedVehicle.getReservedUIDs().toString());
-
+            System.out.println("HERE");
+            System.out.println(lo);
             location.setText("Location: "+lo);
             price.setText("Price: "+pr);
             model.setText("Model: "+mo);
