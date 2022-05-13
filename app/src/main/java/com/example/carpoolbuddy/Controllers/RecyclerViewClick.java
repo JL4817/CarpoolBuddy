@@ -32,11 +32,11 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
     private TextView location, price, model, type;
     private String lo, pr, mo, ty, bat;
-    private int position;
+   // private int position;
     private Vehicle vehicle;
 
     private ArrayList<Vehicle> vehicleList;
-    private Vehicle selectedVehicle;
+   // private Vehicle selectedVehicle;
     private LinearLayout layout;
     private TextView battSize;
 
@@ -52,7 +52,13 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next);
 
-        if(getIntent().hasExtra("vehicleList") & getIntent().hasExtra("pos")){
+        if(getIntent().hasExtra("vehicle")){
+
+            vehicle = (Vehicle)getIntent().getParcelableExtra("vehicle");
+         //   selectedVehicle = (Vehicle)getIntent().getSerializableExtra("selectedVehicle");
+            vehicleList = (ArrayList<Vehicle>) getIntent().getSerializableExtra("vehicleList");
+         //   position = (int) getIntent().getSerializableExtra("vehiclePos");
+
 
             //vehicle.getModel();
 
@@ -71,31 +77,27 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
             mo = vehicle.getModel();
         //    ty = vehicle.getType();
 
-            carMaxCapacityTextView.setText(String.valueOf(selectedVehicle.getCapacity()));
-            carRemainingCapacity.setText(String.valueOf(selectedVehicle.getRemainingCapacity()));
-            bookedUIDs.setText(selectedVehicle.getReservedUIDs().toString());
-            System.out.println("HERE");
-            System.out.println(lo);
+            carMaxCapacityTextView.setText(String.valueOf(vehicle.getCapacity()));
+            carRemainingCapacity.setText(String.valueOf(vehicle.getRemainingCapacity()));
+            bookedUIDs.setText(vehicle.getReservedUIDs().toString());
+
             location.setText("Location: "+lo);
             price.setText("Price: "+pr);
+
             model.setText("Model: "+mo);
           //  type.setText("Type of Car: "+ty);
 
-            vehicleList = (ArrayList<Vehicle>) getIntent().getSerializableExtra("vehicleList");
-            position = (int) getIntent().getSerializableExtra("vehiclePos");
 
-
-            if (vehicleList.get(position).getType().equals(Constants.V_ELECTRICCAR)) {
-                ElectricCar electricCar = (ElectricCar) vehicleList.get(position);
+            if (vehicle.getType().equals(Constants.V_ELECTRICCAR)) {
+                ElectricCar electricCar = (ElectricCar) vehicle;
                 System.out.println(electricCar.getBatterySize());
-
 
                 battSize = new EditText(this);
                 battSize.setHint("Battery Size");
                 layout.addView(battSize);
 
-            } else if(vehicleList.get(position).getType().equals(Constants.V_SPORTSCAR)) {
-                SportsCar sportsCar = (SportsCar) vehicleList.get(position);
+            } else if(vehicle.getType().equals(Constants.V_SPORTSCAR)) {
+                SportsCar sportsCar = (SportsCar) vehicle;
              //   System.out.println(sportsCar.());
             }
 
@@ -132,18 +134,18 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
     public void book(){
 
         //close vihicle if urser took last seat avaliable
-        if(selectedVehicle.getRemainingCapacity() == 1){
-            firestore.collection("vehicles").document(selectedVehicle.getVehicleID())
+        if(vehicle.getRemainingCapacity() == 1){
+            firestore.collection("vehicles").document(vehicle.getVehicleID())
                     .update("open", false);
         }
         //update capacity
-        firestore.collection("vehicles").document(selectedVehicle.getVehicleID())
-                .update("remainingCapacity", selectedVehicle.getRemainingCapacity() -1);
+        firestore.collection("vehicles").document(vehicle.getVehicleID())
+                .update("remainingCapacity", vehicle.getRemainingCapacity() -1);
 
         //add user's uid to the list of reservedUIds
-        selectedVehicle.addReservedUIDs(mAuth.getUid());
-        firestore.collection("vehicles").document(selectedVehicle.getVehicleID())
-                .update("reservedUids", selectedVehicle.getReservedUIDs())
+        vehicle.addReservedUIDs(mAuth.getUid());
+        firestore.collection("vehicles").document(vehicle.getVehicleID())
+                .update("reservedUids", vehicle.getReservedUIDs())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

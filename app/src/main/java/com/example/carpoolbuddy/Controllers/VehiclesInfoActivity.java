@@ -90,8 +90,7 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
 
 
                         Intent i = new Intent(context, RecyclerViewClick.class);
-                        i.putExtra("vehicleList", details);
-                        i.putExtra("vehiclePos", position);
+                        i.putExtra("vehicle", (Parcelable) vehiclesList.get(position));
                         startActivity(i);
 
 
