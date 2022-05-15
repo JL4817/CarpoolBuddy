@@ -12,6 +12,7 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.carpoolbuddy.Models.ElectricCar;
 import com.example.carpoolbuddy.Models.Vehicle;
 import com.example.carpoolbuddy.R;
 import com.example.carpoolbuddy.Utils.Constants;
@@ -65,8 +66,8 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful() && task.getResult() != null){
                     for(QueryDocumentSnapshot document : task.getResult()){
-                        vehiclesList.add(document.toObject(Vehicle.class));
-
+                        if(document.get("type").equals(Constants.V_ELECTRICCAR))
+                            vehiclesList.add(document.toObject(ElectricCar.class));
                     }
                     getAllRidesTask.setResult(null);
                 }
@@ -90,7 +91,8 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
 
 
                         Intent i = new Intent(context, RecyclerViewClick.class);
-                        i.putExtra("vehicle", (Parcelable) vehiclesList.get(position));
+                        i.putExtra("vehicleList", vehiclesList);
+                        i.putExtra("vehiclePos", position);
                         startActivity(i);
 
 
@@ -100,7 +102,7 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
                 });
 
                 //System.out.println(vehiclesList.toString());
-            //System.out.print("Vehicles list gotten from server" + vehiclesList);
+                //System.out.print("Vehicles list gotten from server" + vehiclesList);
 
                 recView.setAdapter(myAdapter);
                 recView.setLayoutManager(new LinearLayoutManager(VehiclesInfoActivity.this));
@@ -111,7 +113,7 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
     }
 
 
-     private void showToast(String message){
+    private void showToast(String message){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 

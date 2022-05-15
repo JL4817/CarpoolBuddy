@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Vehicle implements Serializable, Parcelable {
+public abstract class Vehicle implements Serializable, Parcelable {
     private String location;
     private String model;
     private int capacity;
@@ -46,7 +46,7 @@ public class Vehicle implements Serializable, Parcelable {
         type = in.readString();
     }
 
-    public static final Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
+    /*public static final Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
         @Override
         public Vehicle createFromParcel(Parcel in) {
             return new Vehicle(in);
@@ -56,7 +56,7 @@ public class Vehicle implements Serializable, Parcelable {
         public Vehicle[] newArray(int size) {
             return new Vehicle[size];
         }
-    };
+    };*/
 
     public String getLocation() {
         return location;
@@ -164,6 +164,4 @@ public class Vehicle implements Serializable, Parcelable {
                 ", type='" + type + '\'' +
                 '}';
     }
-
-
 }
