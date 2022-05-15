@@ -102,6 +102,7 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
 
 
+    //book not showing in layout onClick becuase it doens't have View v
 
     public void book(){
 
