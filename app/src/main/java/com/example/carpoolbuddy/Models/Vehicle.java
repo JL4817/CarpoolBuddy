@@ -22,7 +22,7 @@ public abstract class Vehicle implements Serializable, Parcelable {
 
     }
 
-    public Vehicle(String location, String model, int capacity, int price, boolean open, String type) {
+    public Vehicle(String location, String model, int capacity, int price, boolean open, String type, String vehicleID) {
         this.location = location;
         this.model = model;
         this.capacity = capacity;

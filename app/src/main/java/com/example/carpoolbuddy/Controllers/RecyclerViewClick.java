@@ -100,25 +100,21 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
 
 
-
-
-    //book not showing in layout onClick becuase it doens't have View v
-
     public void book(){
 
         //close vihicle if urser took last seat avaliable
-        if(selectedVehicle.getRemainingCapacity() == 1){
-            firestore.collection("vehicles").document(selectedVehicle.getVehicleID())
+        if(vehicle.getRemainingCapacity() == 1){
+            firestore.collection("vehicle").document(vehicle.getVehicleID())
                     .update("open", false);
         }
         //update capacity
-        firestore.collection("vehicles").document(selectedVehicle.getVehicleID())
-                .update("remainingCapacity", selectedVehicle.getRemainingCapacity() -1);
+        firestore.collection("vehicle").document(vehicle.getVehicleID())
+                .update("remainingCapacity", vehicle.getRemainingCapacity() -1);
 
         //add user's uid to the list of reservedUIds
-        selectedVehicle.addReservedUIDs(mAuth.getUid());
-        firestore.collection("vehicles").document(selectedVehicle.getVehicleID())
-                .update("reservedUids", selectedVehicle.getReservedUIDs())
+        vehicle.addReservedUIDs(mAuth.getUid());
+        firestore.collection("vehicle").document(vehicle.getVehicleID())
+                .update("reservedUids", vehicle.getReservedUIDs())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

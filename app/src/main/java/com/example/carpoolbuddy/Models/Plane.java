@@ -18,8 +18,8 @@ public class Plane extends Vehicle{
     }
 
 
-    public Plane(String location, String model, int capacity, int price, boolean open, String type, int planeSize) {
-        super(location, model, capacity, price, open, type);
+    public Plane(String location, String model, int capacity, int price, boolean open, String type, String id, int planeSize) {
+        super(location, model, capacity, price, open, type, id);
         this.planeSize = planeSize;
     }
 
@@ -37,7 +37,7 @@ public class Plane extends Vehicle{
 
         @Override
         public Plane[] newArray(int size) {
-            return new Plane[][size];
+            return new Plane[size];
         }
     };
 

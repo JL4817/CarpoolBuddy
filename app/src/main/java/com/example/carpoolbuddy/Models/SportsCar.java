@@ -16,8 +16,8 @@ public class SportsCar extends Vehicle{
         this.maxSpeed = maxSpeed;
     }
 
-    public SportsCar(String location, String model, int capacity, int price, boolean open, String type, int maxSpeed) {
-        super(location, model, capacity, price, open, type);
+    public SportsCar(String location, String model, int capacity, int price, boolean open, String type, String id, int maxSpeed) {
+        super(location, model, capacity, price, open, type, id);
         this.maxSpeed = maxSpeed;
     }
 
@@ -34,7 +34,7 @@ public class SportsCar extends Vehicle{
 
         @Override
         public SportsCar[] newArray(int size) {
-            return new SportsCar[][size];
+            return new SportsCar[size];
         }
     };
 
