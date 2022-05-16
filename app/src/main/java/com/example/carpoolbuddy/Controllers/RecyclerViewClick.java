@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.carpoolbuddy.Models.ElectricCar;
+import com.example.carpoolbuddy.Models.Plane;
+import com.example.carpoolbuddy.Models.RV;
 import com.example.carpoolbuddy.Models.SportsCar;
 import com.example.carpoolbuddy.Models.Vehicle;
 import com.example.carpoolbuddy.R;
@@ -36,7 +38,12 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
     private ArrayList<Vehicle> vehicleList;
     private Vehicle selectedVehicle;
     private LinearLayout layout;
+
     private TextView battSize;
+    private TextView speed;
+    private TextView nRoom;
+    private TextView pSize;
+
 
     private TextView carMaxCapacityTextView;
     private TextView carRemainingCapacity;
@@ -80,14 +87,29 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
             if (vehicleList.get(position).getType().equals(Constants.V_ELECTRICCAR)) {
                 ElectricCar electricCar = (ElectricCar) vehicleList.get(position);
              //   System.out.println(electricCar.getBatterySize());
-
                 battSize = new TextView(this);
                 battSize.setHint("Battery Size: "+electricCar.getBatterySize());
                 layout.addView(battSize);
 
             } else if(vehicleList.get(position).getType().equals(Constants.V_SPORTSCAR)) {
                 SportsCar sportsCar = (SportsCar) vehicleList.get(position);
-                //   System.out.println(sportsCar.());
+                speed = new TextView(this);
+                speed.setHint("Max Speed: "+sportsCar.getMaxSpeed());
+                layout.addView(speed);
+
+            }
+            else if(vehicleList.get(position).getType().equals(Constants.V_RV)){
+                RV rv = (RV) vehicleList.get(position);
+                nRoom = new TextView(this);
+                nRoom.setHint("Number of Rooms Avaliable: "+rv.getNrOfRooms());
+                layout.addView(nRoom);
+
+            }
+            else if(vehicleList.get(position).getType().equals(Constants.V_PLANE)){
+                Plane plane = (Plane) vehicleList.get(position);
+                pSize = new TextView(this);
+                pSize.setHint("Plane Size: "+plane.getPlaneSize());
+                layout.addView(pSize);
             }
 
 
