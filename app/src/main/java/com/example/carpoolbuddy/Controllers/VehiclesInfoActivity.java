@@ -66,9 +66,12 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful() && task.getResult() != null){
                     for(QueryDocumentSnapshot document : task.getResult()){
-                        if(document.get("type").equals(Constants.V_ELECTRICCAR))
+                        if(document.get("type").equals(Constants.V_ELECTRICCAR)) {
                             vehiclesList.add(document.toObject(ElectricCar.class));
+                        }
+
                     }
+
                     getAllRidesTask.setResult(null);
                 }
                 else{

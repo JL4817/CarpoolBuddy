@@ -36,7 +36,6 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
     private Vehicle vehicle;
 
     private ArrayList<Vehicle> vehicleList;
-    private Vehicle selectedVehicle;
     private LinearLayout layout;
 
     private TextView battSize;
@@ -120,7 +119,9 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
         buttonReservedRide.setOnClickListener(this);
     }
 
-
+//what are booked UID's, it doesn;t show in the layout
+    //other vehicles except electric car doesn't show
+    //rec click alos doens't work
 
     public void book(){
 
@@ -130,6 +131,8 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
                     .update("open", false);
         }
         //update capacity
+        System.out.println("HERE:");
+        System.out.println(vehicle.getRemainingCapacity());
         firestore.collection("vehicle").document(vehicle.getVehicleID())
                 .update("remainingCapacity", vehicle.getRemainingCapacity() -1);
 

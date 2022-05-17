@@ -110,7 +110,7 @@ public class CreateVehicle extends AppCompatActivity {
 
     public void addFields() {
         commonFields();
-        if(selectedRole.equals("Electric Car")) {
+        if(selectedRole.equals(Constants.V_ELECTRICCAR)) {
             battSize = new EditText(this);
             battSize.setHint("Battery Size");
             layout.addView(battSize);
