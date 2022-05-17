@@ -1,5 +1,6 @@
 package com.example.carpoolbuddy.Controllers;
 
+import androidx.annotation.FractionRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -55,6 +56,9 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_click);
+
+        mAuth = FirebaseAuth.getInstance();
+        firestore = FirebaseFirestore.getInstance();
 
         if(getIntent().hasExtra("vehicleList") && getIntent().hasExtra("vehiclePos")){
 

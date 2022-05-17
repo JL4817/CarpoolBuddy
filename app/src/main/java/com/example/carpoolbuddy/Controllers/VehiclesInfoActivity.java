@@ -13,6 +13,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.carpoolbuddy.Models.ElectricCar;
+import com.example.carpoolbuddy.Models.Plane;
+import com.example.carpoolbuddy.Models.RV;
+import com.example.carpoolbuddy.Models.SportsCar;
 import com.example.carpoolbuddy.Models.Vehicle;
 import com.example.carpoolbuddy.R;
 import com.example.carpoolbuddy.Utils.Constants;
@@ -68,6 +71,15 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
                     for(QueryDocumentSnapshot document : task.getResult()){
                         if(document.get("type").equals(Constants.V_ELECTRICCAR)) {
                             vehiclesList.add(document.toObject(ElectricCar.class));
+                        }
+                        if(document.get("type").equals(Constants.V_PLANE)) {
+                            vehiclesList.add(document.toObject(Plane.class));
+                        }
+                        if(document.get("type").equals(Constants.V_RV)) {
+                            vehiclesList.add(document.toObject(RV.class));
+                        }
+                        if(document.get("type").equals(Constants.V_SPORTSCAR)) {
+                            vehiclesList.add(document.toObject(SportsCar.class));
                         }
 
                     }
