@@ -16,13 +16,14 @@ public abstract class Vehicle implements Serializable, Parcelable {
     private int price;
     private boolean open;
     private String type;
+    private String owner;
 
 
     public Vehicle(){
 
     }
 
-    public Vehicle(String location, String model, int capacity, int price, boolean open, String type, String vehicleID) {
+    public Vehicle(String location, String model, int capacity, int price, boolean open, String type, String vehicleID, String owner) {
         this.location = location;
         this.model = model;
         this.capacity = capacity;
@@ -32,6 +33,7 @@ public abstract class Vehicle implements Serializable, Parcelable {
         this.price = price;
         this.open = open;
         this.type = type;
+        this.owner = owner;
     }
 
     protected Vehicle(Parcel in) {
@@ -44,6 +46,7 @@ public abstract class Vehicle implements Serializable, Parcelable {
         price = in.readInt();
         open = in.readByte() != 0;
         type = in.readString();
+        owner = in.readString();
     }
 
     /*public static final Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
@@ -148,6 +151,19 @@ public abstract class Vehicle implements Serializable, Parcelable {
         dest.writeInt(price);
         dest.writeByte((byte) (open ? 1 : 0));
         dest.writeString(type);
+        dest.writeString(owner);
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public void setReservedUIDs(ArrayList<String> reservedUIDs) {
+        this.reservedUIDs = reservedUIDs;
     }
 
     @Override
@@ -162,6 +178,7 @@ public abstract class Vehicle implements Serializable, Parcelable {
                 ", price=" + price +
                 ", open=" + open +
                 ", type='" + type + '\'' +
+                ", owner='" + owner + '\'' +
                 '}';
     }
 }

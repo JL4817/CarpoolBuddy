@@ -5,8 +5,8 @@ public class Parent extends User{
     private int nrOfKids;
 
 
-    public Parent(String email, String name, int nrOfKids) {
-        super(email, name);
+    public Parent(String userId, String email, String name, int nrOfKids) {
+        super(userId, email, name);
         this.nrOfKids = nrOfKids;
     }
 

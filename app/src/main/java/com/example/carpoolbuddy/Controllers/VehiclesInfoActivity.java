@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.carpoolbuddy.Models.ElectricCar;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -33,10 +35,12 @@ import java.util.List;
 public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder.ItemClickListener{
 
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private FirebaseFirestore firestore;
     private ArrayList<Vehicle> vehiclesList;
     private RecyclerView recView;
     private Context context;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +55,7 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
 
         showVL();
 
-
-
         //  recView.setHasFixedSize(true);
-
-
-
     }
 
 
@@ -109,8 +108,6 @@ public class VehiclesInfoActivity extends AppCompatActivity implements RecHolder
                         i.putExtra("vehicleList", vehiclesList);
                         i.putExtra("vehiclePos", position);
                         startActivity(i);
-
-
 
                     }
 

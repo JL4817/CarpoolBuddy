@@ -1,14 +1,20 @@
 package com.example.carpoolbuddy.Models;
 
+import java.util.ArrayList;
+
 public class User {
 
     private String email;
     private String name;
+    private ArrayList<String> ownedVehicles;
+    private String uid;
 
 
-    public User(String email, String name){
+    public User(String uid, String email, String name){
         this.email = email;
         this.name = name;
+        ownedVehicles = new ArrayList<>();
+        this.uid = uid;
     }
 
 
@@ -20,7 +26,6 @@ public class User {
         this.email = email;
     }
 
-
     public String getName() {
         return name;
     }
@@ -30,11 +35,30 @@ public class User {
     }
 
 
+    public ArrayList<String> getOwnedVehicles() {
+        return ownedVehicles;
+    }
+
+    public void setOwnedVehicles(ArrayList<String> ownedVehicles) {
+        this.ownedVehicles = ownedVehicles;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
                 "email='" + email + '\'' +
                 ", name='" + name + '\'' +
+                ", ownedVebicles=" + ownedVehicles +
+                ", uid='" + uid + '\'' +
                 '}';
     }
 }

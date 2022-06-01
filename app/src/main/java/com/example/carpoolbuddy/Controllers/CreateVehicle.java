@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -36,11 +37,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class CreateVehicle extends AppCompatActivity {
 
     private FirebaseFirestore firestore;
 
     //vehicle common
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
+
     private EditText location;
     private EditText model;
     private EditText capacity;
@@ -65,12 +71,19 @@ public class CreateVehicle extends AppCompatActivity {
     private EditText maxSpeedPossible;
 
 
+    ArrayList<String> ownedVehicles;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_vehicle);
-
         firestore = FirebaseFirestore.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
 
         layout = findViewById(R.id.linearLayoutVehicle);
         userRoleSpinner = findViewById(R.id.spinnerVehicle);
@@ -172,6 +185,9 @@ public class CreateVehicle extends AppCompatActivity {
         DocumentReference newSignUpKey = firestore.collection(Constants.VEHICLE_COLLECTION).document();
         String vehicleKey = newSignUpKey.getId();
 
+        //user ID
+        String userID = mUser.getUid();
+
         //make new user according to selected usertype
         Vehicle newVehicle = null;
 
@@ -180,6 +196,8 @@ public class CreateVehicle extends AppCompatActivity {
         int spaces = Integer.parseInt(capacity.getText().toString());
         int theCost = Integer.parseInt(price.getText().toString());
         String typeV = type.getText().toString();
+
+
       //  boolean openH = Boolean.parseBoolean(open.getText().toString());
 
         Boolean checked = open.isChecked();
@@ -187,22 +205,26 @@ public class CreateVehicle extends AppCompatActivity {
 
         if(selectedRole.equals(Constants.V_ELECTRICCAR)) {
             int batterySizer = Integer.parseInt(battSize.getText().toString());
-            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, batterySizer);
+            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, batterySizer, userID);
+
+            String id = mAuth.getCurrentUser().getUid();
+            ownedVehicles.add(id);
+
 
         }
         else if(selectedRole.equals(Constants.V_PLANE)) {
             int planeSize= Integer.parseInt(aircraftSize.getText().toString());
-            newVehicle = new Plane(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, planeSize);
+            newVehicle = new Plane(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, planeSize, userID);
 
         }
         else if(selectedRole.equals(Constants.V_RV)) {
             int nrOfRooms = Integer.parseInt(nrOfRoomsAd.getText().toString());
-            newVehicle = new RV(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, nrOfRooms);
+            newVehicle = new RV(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, nrOfRooms, userID);
 
         }
         else if(selectedRole.equals(Constants.V_SPORTSCAR)) {
             int maxSpeed = Integer.parseInt(maxSpeedPossible.getText().toString());
-            newVehicle = new SportsCar(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, maxSpeed);
+            newVehicle = new SportsCar(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, maxSpeed, userID);
         }
 
 

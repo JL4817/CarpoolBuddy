@@ -7,8 +7,8 @@ public class Student extends User{
     private int grade;
 
 
-    public Student(String email, String name, int grade) {
-        super(email, name);
+    public Student(String userId, String email, String name, int grade) {
+        super(userId, email, name);
         this.grade = grade;
     }
 

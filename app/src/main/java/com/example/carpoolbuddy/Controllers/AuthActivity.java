@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.carpoolbuddy.Models.Alumni;
+import com.example.carpoolbuddy.Models.Parent;
 import com.example.carpoolbuddy.Models.Student;
 
 import com.example.carpoolbuddy.Models.Teacher;
@@ -28,6 +29,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 
 public class AuthActivity extends AppCompatActivity {
@@ -56,6 +59,8 @@ public class AuthActivity extends AppCompatActivity {
     //parent
     private EditText nrOfKidsParent;
 
+    private String userId;
+    ArrayList<String> ownedVehicles;
 
 
     @Override
@@ -71,7 +76,6 @@ public class AuthActivity extends AppCompatActivity {
         setupSpinner();
 
     }
-
 
 
 
@@ -165,6 +169,8 @@ public class AuthActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
 
+
+
                             Intent nextScreen = new Intent(getBaseContext(), MainMenu.class);
                             startActivity(nextScreen);
 
@@ -190,11 +196,10 @@ public class AuthActivity extends AppCompatActivity {
     public void signUp(View v){
 
         //generate + get new key
-        DocumentReference newSignUpKey = firestore.collection(Constants.PEOPLE_COLLECTION).document();
-        String userKey = newSignUpKey.getId();
+      //  DocumentReference newSignUpKey = firestore.collection(Constants.PEOPLE_COLLECTION).document();
+     //   String userKey = newSignUpKey.getId();
 
-        //make new user according to selected usertype
-        User newUser = null;
+
 
         String nameString = nameField.getText().toString();
         String emailString = emailField.getText().toString();
@@ -208,6 +213,8 @@ public class AuthActivity extends AppCompatActivity {
 
                     FirebaseUser user = mAuth.getCurrentUser();
                     updateUI(user);
+                    userId = user.getUid();
+                    addUserToDatabase(emailString, nameString);
 
                 }else{
                     Log.w("Sign up", "createuserWIthEmailFailure", task.getException());
@@ -216,30 +223,39 @@ public class AuthActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    public void addUserToDatabase(String emailString, String nameString){
+
+        //make new user according to selected usertype
+        User newUser = null;
+
+
         if(selectedRole.equals(Constants.USER_ALUMNI)) {
             int gradYearInt = Integer.parseInt(gradYearField.getText().toString());
-            newUser = new Alumni(emailString, nameString, gradYearInt);
+            newUser = new Alumni(userId, emailString, nameString, gradYearInt);
 
         }
         else if(selectedRole.equals(Constants.USER_STUDENT)) {
             int studentGradeInt = Integer.parseInt(studentGrade.getText().toString());
-            newUser = new Student(emailString, nameString, studentGradeInt);
+            newUser = new Student(userId, emailString, nameString, studentGradeInt);
 
         }
         else if(selectedRole.equals(Constants.USER_TEACHER)) {
             int teacherAgeInt = Integer.parseInt(teacherAge.getText().toString());
-            newUser = new Teacher(emailString, nameString, teacherAgeInt);
+            newUser = new Teacher(userId, emailString, nameString, teacherAgeInt);
 
         }
         else if(selectedRole.equals(Constants.USER_PARENT)) {
             int nrKidsP = Integer.parseInt(nrOfKidsParent.getText().toString());
-            newUser = new Teacher(emailString, nameString, nrKidsP);
+            newUser = new Parent(userId, emailString, nameString, nrKidsP);
         }
 
-
-
         //add the new user to the database
-        newSignUpKey.set(newUser);
+       // newSignUpKey.set(newUser);
+
+        firestore.collection(Constants.PEOPLE_COLLECTION).document(userId).set(newUser);
 
     }
 

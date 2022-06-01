@@ -1,6 +1,5 @@
 package com.example.carpoolbuddy.Controllers;
 
-import androidx.annotation.FractionRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,12 +14,16 @@ import com.example.carpoolbuddy.Models.ElectricCar;
 import com.example.carpoolbuddy.Models.Plane;
 import com.example.carpoolbuddy.Models.RV;
 import com.example.carpoolbuddy.Models.SportsCar;
+import com.example.carpoolbuddy.Models.User;
 import com.example.carpoolbuddy.Models.Vehicle;
 import com.example.carpoolbuddy.R;
 import com.example.carpoolbuddy.Utils.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -29,12 +31,13 @@ import java.util.ArrayList;
 public class RecyclerViewClick extends AppCompatActivity implements View.OnClickListener{
 
     private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private FirebaseFirestore firestore;
 
     private TextView location, price, model, type;
     private String lo, pr, mo, ty, bat;
     private int position;
-    private Vehicle vehicle;
+    private Vehicle selectedVehicle;
 
     private ArrayList<Vehicle> vehicleList;
     private LinearLayout layout;
@@ -48,7 +51,10 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
     private TextView carMaxCapacityTextView;
     private TextView carRemainingCapacity;
     private TextView bookedUIDs;
+
+    //for the owner alone
     private Button buttonReservedRide;
+    private Button buttonCloseRide;
 
 
 
@@ -66,7 +72,7 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
             position = (int) getIntent().getSerializableExtra("vehiclePos");
 
             //vehicle.getModel();
-            vehicle = vehicleList.get(position);
+            selectedVehicle = vehicleList.get(position);
             layout = findViewById(R.id.mainLayout);
             price = findViewById(R.id.priceN);
             model = findViewById(R.id.modelN);
@@ -75,12 +81,12 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
             carRemainingCapacity = findViewById(R.id.reCa);
             bookedUIDs = findViewById(R.id.bookedUID);
 
-            lo = vehicle.getLocation();
-            pr = String.valueOf(vehicle.getPrice());
-            mo = vehicle.getModel();
-            carMaxCapacityTextView.setText(String.valueOf("Maximum Capacity:"+vehicle.getCapacity()));
-            carRemainingCapacity.setText(String.valueOf("Seats left: "+vehicle.getRemainingCapacity()));
-            bookedUIDs.setText(vehicle.getReservedUIDs().toString());
+            lo = selectedVehicle.getLocation();
+            pr = String.valueOf(selectedVehicle.getPrice());
+            mo = selectedVehicle.getModel();
+            carMaxCapacityTextView.setText(String.valueOf("Maximum Capacity:"+ selectedVehicle.getCapacity()));
+            carRemainingCapacity.setText(String.valueOf("Seats left: "+ selectedVehicle.getRemainingCapacity()));
+            bookedUIDs.setText(selectedVehicle.getReservedUIDs().toString());
             location.setText("Location: "+lo);
             price.setText("Price: "+pr);
             model.setText("Model: "+mo);
@@ -119,8 +125,29 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
         }
 
 
-        buttonReservedRide = findViewById(R.id.carpool);
+        buttonReservedRide = findViewById(R.id.buttonReservedRide);
         buttonReservedRide.setOnClickListener(this);
+
+        buttonCloseRide = findViewById(R.id.buttonCloseRide);
+        buttonCloseRide.setOnClickListener(this);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        firestore.collection(Constants.PEOPLE_COLLECTION).document(mUser.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User tempUser = documentSnapshot.toObject(User.class);
+
+                if(tempUser != null && tempUser.getOwnedVehicles().contains(selectedVehicle.getVehicleID())){
+                    buttonCloseRide.setVisibility(View.VISIBLE);
+                }
+                else{
+                    buttonReservedRide.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+
+
     }
 
 //what are booked UID's, it doesn;t show in the layout
@@ -130,20 +157,20 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
     public void book(){
 
         //close vihicle if urser took last seat avaliable
-        if(vehicle.getRemainingCapacity() == 1){
-            firestore.collection("vehicle").document(vehicle.getVehicleID())
+        if(selectedVehicle.getRemainingCapacity() == 1){
+            firestore.collection("vehicle").document(selectedVehicle.getVehicleID())
                     .update("open", false);
         }
         //update capacity
         System.out.println("HERE:");
-        System.out.println(vehicle.getRemainingCapacity());
-        firestore.collection("vehicle").document(vehicle.getVehicleID())
-                .update("remainingCapacity", vehicle.getRemainingCapacity() -1);
+        System.out.println(selectedVehicle.getRemainingCapacity());
+        firestore.collection("vehicle").document(selectedVehicle.getVehicleID())
+                .update("remainingCapacity", selectedVehicle.getRemainingCapacity() -1);
 
         //add user's uid to the list of reservedUIds
-        vehicle.addReservedUIDs(mAuth.getUid());
-        firestore.collection("vehicle").document(vehicle.getVehicleID())
-                .update("reservedUids", vehicle.getReservedUIDs())
+        selectedVehicle.addReservedUIDs(mAuth.getUid());
+        firestore.collection("vehicle").document(selectedVehicle.getVehicleID())
+                .update("reservedUids", selectedVehicle.getReservedUIDs())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
@@ -156,12 +183,25 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
     }
 
+    private void closeRide(){
+        firestore.collection("vehicle").document(selectedVehicle.getVehicleID())
+                .update("open", false);
+
+        //go back to VehiclesInfoActivity
+        Intent intent = new Intent(getApplicationContext(), VehiclesInfoActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if(i==buttonReservedRide.getId()){
             book();
+        }
+        else if(i == buttonCloseRide.getId()){
+            closeRide();
         }
     }
 }

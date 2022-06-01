@@ -4,8 +4,8 @@ public class Alumni extends User{
 
     private int gradYearInt;
 
-    public Alumni(String email, String name, int gradYearInt) {
-        super(email, name);
+    public Alumni(String userId, String email, String name, int gradYearInt) {
+        super(userId, email, name);
         this.gradYearInt = gradYearInt;
     }
 

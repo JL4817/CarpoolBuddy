@@ -99,7 +99,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/carpool"
+        android:id="@+id/buttonReservedRide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClick"
@@ -109,6 +109,20 @@
         app:layout_constraintHorizontal_bias="0.212"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.732" />
+        app:layout_constraintVertical_bias="0.732"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/buttonCloseRide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Close Ride"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.745"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.732"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
