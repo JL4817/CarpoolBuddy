@@ -124,7 +124,6 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
         }
 
-
         buttonReservedRide = findViewById(R.id.buttonReservedRide);
         buttonReservedRide.setOnClickListener(this);
 

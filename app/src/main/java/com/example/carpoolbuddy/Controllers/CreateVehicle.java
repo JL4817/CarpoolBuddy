@@ -207,8 +207,8 @@ public class CreateVehicle extends AppCompatActivity {
             int batterySizer = Integer.parseInt(battSize.getText().toString());
             newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, batterySizer, userID);
 
-            String id = mAuth.getCurrentUser().getUid();
-            ownedVehicles.add(id);
+          //  String id = mAuth.getCurrentUser().getUid();
+         //   ownedVehicles.add(id);
 
 
         }
