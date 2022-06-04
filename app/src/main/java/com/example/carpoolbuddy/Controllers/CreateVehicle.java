@@ -121,6 +121,7 @@ public class CreateVehicle extends AppCompatActivity {
 
 
 
+
     public void addFields() {
         commonFields();
         if(selectedRole.equals(Constants.V_ELECTRICCAR)) {

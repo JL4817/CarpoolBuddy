@@ -18,7 +18,6 @@ public abstract class Vehicle implements Serializable, Parcelable {
     private String type;
     private String owner;
 
-
     public Vehicle(){
 
     }
