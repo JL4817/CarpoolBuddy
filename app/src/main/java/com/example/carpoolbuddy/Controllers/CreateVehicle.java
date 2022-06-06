@@ -35,6 +35,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -231,6 +232,9 @@ public class CreateVehicle extends AppCompatActivity {
 
         //add the new vehicle to the database
         newSignUpKey.set(newVehicle);
+
+        firestore.collection(Constants.PEOPLE_COLLECTION).document(mUser.getUid())
+                .update("ownedVehicles", FieldValue.arrayUnion(vehicleKey));
 
     }
 
