@@ -7,9 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.carpoolbuddy.Models.ElectricCar;
 import com.example.carpoolbuddy.Models.Plane;
 import com.example.carpoolbuddy.Models.RV;
@@ -56,6 +58,8 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
     private Button buttonReservedRide;
     private Button buttonCloseRide;
 
+    ImageView imageView;
+
 
 
     @Override
@@ -66,10 +70,14 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
+
+
+
         if(getIntent().hasExtra("vehicleList") && getIntent().hasExtra("vehiclePos")){
 
             vehicleList = (ArrayList<Vehicle>) getIntent().getSerializableExtra("vehicleList");
             position = (int) getIntent().getSerializableExtra("vehiclePos");
+
 
             //vehicle.getModel();
             selectedVehicle = vehicleList.get(position);
@@ -81,6 +89,8 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
             carRemainingCapacity = findViewById(R.id.reCa);
             bookedUIDs = findViewById(R.id.bookedUID);
 
+            imageView = findViewById(R.id.imageView3);
+
             lo = selectedVehicle.getLocation();
             pr = String.valueOf(selectedVehicle.getPrice());
             mo = selectedVehicle.getModel();
@@ -91,6 +101,8 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
             price.setText("Price: "+pr);
             model.setText("Model: "+mo);
 
+            String il = selectedVehicle.getImageLinks();
+            Glide.with(this).load(il).into(imageView);
 
 
             if (vehicleList.get(position).getType().equals(Constants.V_ELECTRICCAR)) {

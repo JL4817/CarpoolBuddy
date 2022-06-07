@@ -74,6 +74,8 @@ public class CreateVehicle extends AppCompatActivity {
 
     ArrayList<String> ownedVehicles;
 
+    //link
+    private EditText imageLink;
 
 
 
@@ -177,6 +179,10 @@ public class CreateVehicle extends AppCompatActivity {
         type.setHint("Write the Type:");
         layout.addView(type);
 
+        imageLink = new EditText(this);
+        imageLink.setHint("Image Link: ");
+        layout.addView(imageLink);
+
     }
 
 
@@ -199,6 +205,8 @@ public class CreateVehicle extends AppCompatActivity {
         int theCost = Integer.parseInt(price.getText().toString());
         String typeV = type.getText().toString();
 
+        String imageLinkTo = imageLink.getText().toString();
+
 
       //  boolean openH = Boolean.parseBoolean(open.getText().toString());
 
@@ -207,7 +215,7 @@ public class CreateVehicle extends AppCompatActivity {
 
         if(selectedRole.equals(Constants.V_ELECTRICCAR)) {
             int batterySizer = Integer.parseInt(battSize.getText().toString());
-            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, batterySizer, userID);
+            newVehicle = new ElectricCar(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, batterySizer, userID, imageLinkTo);
 
           //  String id = mAuth.getCurrentUser().getUid();
          //   ownedVehicles.add(id);
@@ -216,17 +224,17 @@ public class CreateVehicle extends AppCompatActivity {
         }
         else if(selectedRole.equals(Constants.V_PLANE)) {
             int planeSize= Integer.parseInt(aircraftSize.getText().toString());
-            newVehicle = new Plane(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, planeSize, userID);
+            newVehicle = new Plane(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, planeSize, userID, imageLinkTo);
 
         }
         else if(selectedRole.equals(Constants.V_RV)) {
             int nrOfRooms = Integer.parseInt(nrOfRoomsAd.getText().toString());
-            newVehicle = new RV(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, nrOfRooms, userID);
+            newVehicle = new RV(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, nrOfRooms, userID, imageLinkTo);
 
         }
         else if(selectedRole.equals(Constants.V_SPORTSCAR)) {
             int maxSpeed = Integer.parseInt(maxSpeedPossible.getText().toString());
-            newVehicle = new SportsCar(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, maxSpeed, userID);
+            newVehicle = new SportsCar(locationPlace, modelName, spaces, theCost, checked, typeV, vehicleKey, maxSpeed, userID, imageLinkTo);
         }
 
 

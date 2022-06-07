@@ -18,11 +18,13 @@ public abstract class Vehicle implements Serializable, Parcelable {
     private String type;
     private String owner;
 
+    private String imageLinks;
+
     public Vehicle(){
 
     }
 
-    public Vehicle(String location, String model, int capacity, int price, boolean open, String type, String vehicleID, String owner) {
+    public Vehicle(String location, String model, int capacity, int price, boolean open, String type, String vehicleID, String owner, String imageLinks) {
         this.location = location;
         this.model = model;
         this.capacity = capacity;
@@ -33,6 +35,8 @@ public abstract class Vehicle implements Serializable, Parcelable {
         this.open = open;
         this.type = type;
         this.owner = owner;
+        this.imageLinks = imageLinks;
+
     }
 
     protected Vehicle(Parcel in) {
@@ -46,6 +50,7 @@ public abstract class Vehicle implements Serializable, Parcelable {
         open = in.readByte() != 0;
         type = in.readString();
         owner = in.readString();
+        imageLinks = in.readString();
     }
 
     /*public static final Creator<Vehicle> CREATOR = new Creator<Vehicle>() {
@@ -151,6 +156,7 @@ public abstract class Vehicle implements Serializable, Parcelable {
         dest.writeByte((byte) (open ? 1 : 0));
         dest.writeString(type);
         dest.writeString(owner);
+        dest.writeString(imageLinks);
     }
 
     public String getOwner() {
@@ -163,6 +169,14 @@ public abstract class Vehicle implements Serializable, Parcelable {
 
     public void setReservedUIDs(ArrayList<String> reservedUIDs) {
         this.reservedUIDs = reservedUIDs;
+    }
+
+    public String getImageLinks() {
+        return imageLinks;
+    }
+
+    public void setImageLinks(String imageLinks) {
+        this.imageLinks = imageLinks;
     }
 
     @Override
@@ -178,6 +192,7 @@ public abstract class Vehicle implements Serializable, Parcelable {
                 ", open=" + open +
                 ", type='" + type + '\'' +
                 ", owner='" + owner + '\'' +
+                ", imageLinks='" + imageLinks + '\'' +
                 '}';
     }
 }

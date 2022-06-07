@@ -16,8 +16,8 @@ public class SportsCar extends Vehicle{
         this.maxSpeed = maxSpeed;
     }
 
-    public SportsCar(String location, String model, int capacity, int price, boolean open, String type, String id, int maxSpeed, String owner) {
-        super(location, model, capacity, price, open, type, id, owner);
+    public SportsCar(String location, String model, int capacity, int price, boolean open, String type, String id, int maxSpeed, String owner, String imageLinks) {
+        super(location, model, capacity, price, open, type, id, owner, imageLinks);
         this.maxSpeed = maxSpeed;
     }
 
