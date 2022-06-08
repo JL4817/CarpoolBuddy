@@ -8,8 +8,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_menu_lists.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_next.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_recycler_click.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/activity_recycler_click.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.16775230087276258" />
         <entry key="app/src/main/res/layout/activity_vehicle_view_holder.xml" value="0.213768115942029" />
         <entry key="app/src/main/res/layout/activity_vehicles_info.xml" value="0.335" />
         <entry key="app/src/main/res/layout/after_log_in.xml" value="0.2926367800825095" />

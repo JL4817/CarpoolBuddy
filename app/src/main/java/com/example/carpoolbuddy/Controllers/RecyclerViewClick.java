@@ -52,7 +52,7 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
 
     private TextView carMaxCapacityTextView;
     private TextView carRemainingCapacity;
-    private TextView bookedUIDs;
+    private TextView vehicleID;
 
     //for the owner alone
     private Button buttonReservedRide;
@@ -70,7 +70,8 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
         mAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
 
-
+     //  imageView = findViewById(R.id.imageView3);
+    //    Glide.with(this).load("https://www.bmw.com/content/dam/bmw/marketBMWCOM/bmw_com/events/ces2022/eink/BMW_eink_01_mobile.jpg.asset.1641400104406.jpg").into(imageView);
 
 
         if(getIntent().hasExtra("vehicleList") && getIntent().hasExtra("vehiclePos")){
@@ -87,22 +88,25 @@ public class RecyclerViewClick extends AppCompatActivity implements View.OnClick
             location = findViewById(R.id.locationN);
             carMaxCapacityTextView = findViewById(R.id.maxCa);
             carRemainingCapacity = findViewById(R.id.reCa);
-            bookedUIDs = findViewById(R.id.bookedUID);
+            vehicleID = findViewById(R.id.bookedUID);
 
             imageView = findViewById(R.id.imageView3);
 
             lo = selectedVehicle.getLocation();
             pr = String.valueOf(selectedVehicle.getPrice());
             mo = selectedVehicle.getModel();
+            String book = selectedVehicle.getVehicleID();
             carMaxCapacityTextView.setText(String.valueOf("Maximum Capacity:"+ selectedVehicle.getCapacity()));
             carRemainingCapacity.setText(String.valueOf("Seats left: "+ selectedVehicle.getRemainingCapacity()));
-            bookedUIDs.setText(selectedVehicle.getReservedUIDs().toString());
+            vehicleID.setText(selectedVehicle.getReservedUIDs().toString());
             location.setText("Location: "+lo);
             price.setText("Price: "+pr);
             model.setText("Model: "+mo);
+            vehicleID.setText("Vehicle ID: "+book);
 
-            String il = selectedVehicle.getImageLinks();
-            Glide.with(this).load(il).into(imageView);
+            //il is supposed to be the link, is there anywhere to get the string inside there
+           String il = selectedVehicle.getImageLinks();
+           Glide.with(this).load(il).into(imageView);
 
 
             if (vehicleList.get(position).getType().equals(Constants.V_ELECTRICCAR)) {
